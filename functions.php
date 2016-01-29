@@ -47,6 +47,8 @@ if ( ! function_exists( 'starter_theme_setup' ) ):
         // Enable support for editable menus via Appearance > Menus
         register_nav_menus( array(
             'primary' => __( 'Primary Menu', 'starter-theme' ),
+            'footer' => __('Footer Menu', 'starter-theme'),
+            'portfolio' => __('Portfolio Menu', 'starter-theme')
         ) );
         
         // Add custom image sizes
@@ -68,22 +70,29 @@ function starter_theme_widgets_init() {
     ) );
 }
 add_action( 'widgets_init', 'starter_theme_widgets_init' );
+
 /* ENQUEUE SCRIPTS & STYLES
  ========================== */
 function starter_theme_scripts() {
     // theme style.css file
     wp_enqueue_style( 'starter-theme-style', get_stylesheet_uri() );
+
     
     // threaded comments
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
     // vendor scripts
-//  wp_enqueue_script(
-//      'vendor',
-//      get_template_directory_uri() . '/assets/vendor/newscript.js',
-//      array('jquery')
-//  );
+   
+    if ( is_front_page() ):
+    wp_enqueue_script(
+        'bxslider',
+        get_template_directory_uri() . '/assets/vendor/jquery.bxslider.min.js',
+        array('jquery')
+    );
+endif;
+
+
     // theme scripts
 //  wp_enqueue_script(
 //      'theme-init',
@@ -92,6 +101,19 @@ function starter_theme_scripts() {
 //  );
 }    
 add_action('wp_enqueue_scripts', 'starter_theme_scripts');
+
+
+
+
+
+// Google webfonts stylesheet
+    function wpb_add_google_fonts() {
+
+    wp_enqueue_style('wpb-google-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600', false);
+}
+
+    add_action ('wp_enqueue_scripts', 'wpb_add_google_fonts');
+
 /**
  * Remove the front-end admin bar for everybody, always
  */
@@ -114,3 +136,7 @@ show_admin_bar( false );
 //return $init;
 //}
 //add_filter('tiny_mce_before_init', 'themeFunction_change_mce_options');
+
+
+// Comments & pingbacks display template
+include('inc/functions/comments.php');

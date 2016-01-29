@@ -10,8 +10,39 @@
 
 get_header(); ?>
 
-<section id="primary" role="main" class="col">
+<?php if( have_rows('slider', 20)): ?>
 
+    <ul class="bxslider">
+
+    <?php while( have_rows('slider', 20)): the_row(); 
+
+        // vars
+        $image = get_sub_field('image');
+        $link = get_sub_field('url');
+
+        ?>
+
+        <li>
+
+            <?php if( $link ): ?>
+                <a href="<?php echo $link; ?>">
+            <?php endif; ?>
+
+                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt'] ?>" />
+
+            <?php if( $link ): ?>
+                </a>
+            <?php endif; ?>
+
+        </li>
+
+    <?php endwhile; ?>
+
+    </ul>
+
+<?php endif; ?>
+
+<section id="primary" role="main" class="col">
 
 
     <?php if ( have_posts() ) : ?>

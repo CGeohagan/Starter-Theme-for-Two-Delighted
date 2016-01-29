@@ -21,4 +21,4 @@ Thumbs.db
 *.esproj
 *.sass-cache
 *.ruby-version
-node_modules
+/node_modules/

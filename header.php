@@ -33,21 +33,23 @@
         <script src="<?php echo get_template_directory_uri(); ?>/assets/vendor/html5shiv.min.js" type="text/javascript"></script>
     <![endif]-->
 
-    <?php // Lets other plugins and files tie into our theme's <head>:
+    <?php // Lets other plugins and files tie into our theme's <head>:  
     wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+
 <div id="page">
+    <nav id="access" role="navigation">
+            <?php wp_nav_menu( array( "theme_location" => "primary" ) ); ?>
+    </nav><!-- #access --> 
+
     <header id="site-header" role="banner">            
-            <h1>
+            <h1 id="logo">
                 <a href="<?php echo esc_url( home_url( "/" ) ); ?>">
                     <?php bloginfo("name"); ?>
                 </a>
-            </h1>
-            <nav id="access" role="navigation">
-                <?php wp_nav_menu( array( "theme_location" => "primary" ) ); ?>
-            </nav><!-- #access -->  
+            </h1>  
     </header><!-- #branding -->
 
 
